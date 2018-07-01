@@ -1,0 +1,40 @@
+language: julia
+os:
+  - linux
+julia:
+  - 0.6
+notifications:
+  email: false
+git:
+  depth: 99999999
+cache:
+  timeout: 1000
+  directories:
+    - downloads
+env:
+  global:
+    - BINARYBUILDER_DOWNLOADS_CACHE=downloads
+    - BINARYBUILDER_AUTOMATIC_APPLE=false
+sudo: required
+
+# Before anything else, get the latest versions of things
+before_script:
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl")'
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
+
+script:
+  - julia build_tarballs.jl
+
+
+deploy:
+    provider: releases
+    api_key:
+        # Note; this api_key is only valid for jstrube/LCIOBuilder; you need
+        # to make your own: https://docs.travis-ci.com/user/deployment/releases/
+        secure: EbP9ySicN7P1AW0/qVWpOCUkFY+tSmmaDxOWiEk9JMHjIGKVRVFTnHqbjVcJ4DzczfS4XaBM7CcUOHZRlEEy8Y5d6BDU+mwHy/bofWgZpn+Zz/bOvipMZhi0iGWXsAoAAMoPlkD0k8F7ZnTlvMObhp6btcKvkhUSFOLWNBZxaT5wvM7WQ7A9rn99G/laM7AyIZksIr/MfMZXvsgYdNUy9P0gxrkmHs/Kic6OupnX1NmBGmNOn+ZDUwwOqUji8J+8zxuicmkPD+E5fIIaRnZWwCM3iLZFKBq8Vf6G0cZsY8umOuejszt/CXeSlbfHTtXhi7RSlCZi2IHh4JKrCFfXRhbIBCky55Ll7qKQ3eVC8+U00TelURXlSIVmio/3P6Nb29jZlNMB6MK100w31xbjBOeLkHTquvmKDwBhmyZ8mn6LURO2+JwSw/9p9miniFXQvjpPfrJs9myXkjFFC1JqWJPmfMHbazlCrHf/TTzlO7hyjVw6ATqJ3Iv6fDNLyqiKPymplqDIlsC+fULjC1VWAsN9TSk/3TxAd8ZCBd9HTiLRcjiLpd/p9yvyLt0MsX5xQ9pVwMrxETmufZHJmMWbBDvgsN8c9nX3rb8uHE5l6OU6/Bn28PuDtRKbxa5aIg0ndVuahYq25bv0A1Z0wvl7EXcLscUtRa6SobhBxSaZ60U=
+    file_glob: true
+    file: products/*
+    skip_cleanup: true
+    on:
+        repo: jstrube/LCIOBuilder
+        tags: true
