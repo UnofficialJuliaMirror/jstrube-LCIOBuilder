@@ -12,8 +12,9 @@ sources = [
 # Bash recipe for building across all platforms
 script = raw"""
 cd $WORKSPACE/srcdir
-tar xzf Zlib.v1.2.11.x86_64-linux-gnu.tar.gz
-cmake -DCMAKE_INSTALL_PREFIX=$prefix -DCMAKE_TOOLCHAIN_FILE=/opt/$target/$target.toolchain LCIO-02-12-01/
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=$prefix -DCMAKE_TOOLCHAIN_FILE=/opt/$target/$target.toolchain ../LCIO-02-12-01/
 make 
 make install
 
@@ -22,8 +23,7 @@ make install
 # These are the platforms we will build for by default, unless further
 # platforms are passed in on the command line
 platforms = [
-    Linux(:x86_64, :glibc),
-    Linux(:x86_64, :musl)
+    Linux(:x86_64),
 ]
 
 # The products that we will ensure are always built
@@ -38,5 +38,5 @@ dependencies = [
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
-build_tarballs(ARGS, "LCIOBuilder", sources, script, platforms, products, dependencies)
+build_tarballs(ARGS, "LCIOBuilder", VersionNumber("v02.12.01"), sources, script, platforms, products, dependencies)
 
