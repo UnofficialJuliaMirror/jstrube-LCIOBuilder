@@ -14,16 +14,17 @@ script = raw"""
 cd $WORKSPACE/srcdir
 mkdir build
 cd build
+ln -s /opt/x86_64-apple-darwin14/MacOSX10.10.sdk/usr/include/sys /usr/include
 cmake -DCMAKE_INSTALL_PREFIX=$prefix -DCMAKE_TOOLCHAIN_FILE=/opt/$target/$target.toolchain ../LCIO-02-12-01/
-make 
-make install
-
+VERBOSE=ON cmake --build . --config Release --target install
+rm /usr/include/sys
 """
 
 # These are the platforms we will build for by default, unless further
 # platforms are passed in on the command line
 platforms = [
     Linux(:x86_64),
+    MacOS(:x86_64)
 ]
 
 # The products that we will ensure are always built
