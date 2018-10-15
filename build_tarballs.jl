@@ -14,7 +14,7 @@ script = raw"""
 cd $WORKSPACE/srcdir
 mkdir build
 cd build
-ln -s /opt/x86_64-apple-darwin14/MacOSX10.10.sdk/usr/include/sys /usr/include
+ln -s /opt/x86_64-apple-darwin14/x86_64-apple-darwin14/sys-root/usr/include/sys /usr/include
 cmake -DCMAKE_INSTALL_PREFIX=$prefix -DCMAKE_TOOLCHAIN_FILE=/opt/$target/$target.toolchain ../LCIO-02-12-01/
 VERBOSE=ON cmake --build . --config Release --target install
 rm /usr/include/sys
@@ -23,7 +23,6 @@ rm /usr/include/sys
 # These are the platforms we will build for by default, unless further
 # platforms are passed in on the command line
 platforms = [
-#    Linux(:x86_64, libc=:glibc, compiler_abi=CompilerABI(:gcc4)),
     Linux(:x86_64, libc=:glibc, compiler_abi=CompilerABI(:gcc7)),
     Linux(:x86_64, libc=:glibc, compiler_abi=CompilerABI(:gcc8)),
     MacOS(:x86_64, compiler_abi=CompilerABI(:gcc7)),
