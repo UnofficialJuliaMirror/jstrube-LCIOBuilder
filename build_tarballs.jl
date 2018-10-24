@@ -26,6 +26,8 @@ platforms = [
     Linux(:x86_64, libc=:glibc, compiler_abi=CompilerABI(:gcc4)),
     Linux(:x86_64, libc=:glibc, compiler_abi=CompilerABI(:gcc7)),
     Linux(:x86_64, libc=:glibc, compiler_abi=CompilerABI(:gcc8)),
+    Linux(:x86_64, libc=:glibc, compiler_abi=CompilerABI(:gcc7,:cxx11)),
+    Linux(:x86_64, libc=:glibc, compiler_abi=CompilerABI(:gcc8,:cxx11)),
     MacOS(:x86_64, compiler_abi=CompilerABI(:gcc7)),
     MacOS(:x86_64, compiler_abi=CompilerABI(:gcc8)),
 ]
