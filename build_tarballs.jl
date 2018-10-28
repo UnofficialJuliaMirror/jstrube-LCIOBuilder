@@ -41,9 +41,9 @@ products(prefix) = [
 
 # Dependencies that must be installed before this package can be built
 dependencies = [
-	"https://github.com/jstrube/ZlibBuilder/releases/download/v1.4/build_Zlib.v1.2.11.jl"
+	"https://github.com/bicycle1885/ZlibBuilder/releases/download/v1.0.3/build_Zlib.v1.2.11.jl"
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
-build_tarballs(ARGS, "LCIOBuilder", VersionNumber("v02.12.01"), sources, script, platforms, products, dependencies)
+build_tarballs(ARGS, "LCIOBuilder", VersionNumber("v02.12.01-04"), sources, script, platforms, products, dependencies)
 
